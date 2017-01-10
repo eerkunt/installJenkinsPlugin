@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ "$#" -eq 0 ]; then
     echo "USAGE: $0 [pluginlist]"
@@ -10,6 +10,12 @@ owner="jenkins.jenkins"
 
 mkdir -p "/var/lib/jenkins/plugins"
 
+# installPlugin - This function installs given plugin with it's dependencies.
+#
+# $1 - The name of the plugin
+# $2 - Skip flag, for existing packages
+#
+# Returns none
 installPlugin() {
     if [ -f "$pluginDir/${1}.hpi" ] || [ -f "$pluginDir/${1}.jpi" ]; then
 
@@ -59,7 +65,7 @@ installPlugin() {
   fi
 }
 
-for plugin in "$@" # $*
+for plugin in "$@"
 do
     installPlugin "$plugin"
 done
